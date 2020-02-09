@@ -5,7 +5,7 @@
 PORT=80
 
 # works, execution of one-line commands
-stages=(http_parser.sh request_to_shell.sh shell_backend.sh)
+stages=(./http_parser.sh ./request_to_shell.sh ./shell_backend.sh)
 
 # works, communication with one terminal
 # stages=(http_parser.sh request_to_shell.sh shell_session.sh)
