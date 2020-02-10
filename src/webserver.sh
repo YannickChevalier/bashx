@@ -120,12 +120,13 @@ trap stages_cleanup EXIT
 
 declare -g server_fifo
 server_fifo=$(mktemp -u )
-mkfifo ${server_fifo}
+# mkfifo ${server_fifo}
 
-cat ${server_fifo} | \
-    ${stages[0]} ${next_stage_in} ${next_stage_out} | \
-    nc -C -k -l 127.0.0.1 ${PORT} > \
-       ${server_fifo}
+# cat ${server_fifo} | \
+#     ${stages[0]} ${next_stage_in} ${next_stage_out} | \
+#     nc -C -k -l 127.0.0.1 ${PORT} > \
+#        ${server_fifo}
+${stages[0]} ${next_stage_in} ${next_stage_out}
 
-\rm ${server_fifo}
+# \rm ${server_fifo}
 exit 0
