@@ -34,3 +34,16 @@ précisant sa longueur et son type (text/html) au script précédent.
 Ces fichiers recoivent une commande sur leur entrée standard. Ils
 l'exécutent, et renvoient le résultat sur leur sortie standard.
 
+# Utilisation
+
+Le serveur a été modifié après le premier TP pour être sûr de pouvoir
+travailler. L'inconvénient est qu'il faut écrire les requêtes HTTP
+dans le terminal sur lequel le serveur est exécuté. Pour l'utiliser,
+il faut taper dans le terminal:
+     ./webserver.sh
+     GET / HTTP/1.1
+     command: ls
+     
+     // à chaque fois qu'on tape quelque chose, on voit le
+     // serveur réagir
+N'oubliez pas la ligne vide pour indiquer la fin de la requête !
