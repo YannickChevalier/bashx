@@ -151,7 +151,7 @@ else
     mkfifo ${server_fifo}
     cat ${server_fifo} | \
 	${stages[0]} ${next_stage_in} ${next_stage_out} | \
-	nc -C -k -l 127.0.0.1 ${PORT} > \
+	nc -C -k -l ${HOSTNAME} ${PORT} > \
            ${server_fifo}
     \rm ${server_fifo}
 fi
