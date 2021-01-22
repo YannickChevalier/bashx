@@ -98,7 +98,7 @@ function read_http_header () {
 	   && [[ -z "${request['Content-Length']}" ]]
     then
 	printf "HTTP/1.1 411 Content-Length Required\r\n\r\n" 
-	printf "Date: $(date --rfc-email)\r\n" 
+	printf "Date: $(date -R)\r\n" 
 	printf "Content-Type: ${ContentType}\r\n"
 	# find a way to abort the response
     else
@@ -146,7 +146,7 @@ function response_forward_logic () {
 	 "200")
 	     printf "HTTP/1.1 ${Code} OK\r\n"  
 	     printf "Content-Type: ${ContentType}\r\n" 
-	     printf "Date: $(date --rfc-email)\r\n" 
+	     printf "Date: $(date -R)\r\n" 
 	     printf "Content-Length: ${ContentLength}\r\n" 
 	     printf "\r\n" 
 	     printf "${Content}"
