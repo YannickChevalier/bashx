@@ -3,6 +3,7 @@
 # Only for use during lab sessions
 
 PORT=80
+IP=${HOSTNAME}
 
 # works, execution of one-line commands
 stages=(./http_parser.sh ./request_to_shell.sh ./shell_backend.sh)
@@ -121,7 +122,7 @@ done
 trap stages_cleanup EXIT
 
 
-optstring=":hl"
+optstring=":hlp:i:"
 utilise_port="oui"
 
 while getopts ${optstring} arg; do
@@ -130,11 +131,19 @@ while getopts ${optstring} arg; do
 	echo "$0 [-l] [-h]"
 	echo "    -h  montre l'aide"
 	echo "    -l  le serveur attend les requêtes sur son entrée standard"
+	echo "    -p port sur lequel le serveur écoute, par défaut 80"
+	echo "    -i adresse IP sur laquelle le serveur écoute, par défaut ${HOSTNAME}"
 	exit 0
       ;;
     l)
 	utilise_port=""
         ;;
+    p)
+	PORT="${OPTARG}"
+	;;
+    i)
+	IP="${OPTARG}"
+	;;
     ?)
       echo "mauvaise option: -${OPTARG}."
       exit 2
@@ -151,7 +160,7 @@ else
     mkfifo ${server_fifo}
     cat ${server_fifo} | \
 	${stages[0]} ${next_stage_in} ${next_stage_out} | \
-	nc -C -k -l ${HOSTNAME} ${PORT} > \
+	nc -C -k -l "${IP}" "${PORT}" > \
            ${server_fifo}
     \rm ${server_fifo}
 fi
