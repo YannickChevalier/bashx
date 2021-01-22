@@ -98,7 +98,10 @@ function stages_cleanup () {
 	wait ${pid}
     done
     \rm -f ${all_fifos}
-    \rm -f ${server_fifo}
+    if [ ! -z "${server_fifo}" ]
+    then
+	\rm -f ${server_fifo}
+    fi
     exit 0 
 }
 
@@ -118,15 +121,38 @@ done
 trap stages_cleanup EXIT
 
 
-declare -g server_fifo
-server_fifo=$(mktemp -u )
-# mkfifo ${server_fifo}
+optstring=":hl"
+utilise_port="oui"
 
-# cat ${server_fifo} | \
-#     ${stages[0]} ${next_stage_in} ${next_stage_out} | \
-#     nc -C -k -l 127.0.0.1 ${PORT} > \
-#        ${server_fifo}
-${stages[0]} ${next_stage_in} ${next_stage_out}
-
-# \rm ${server_fifo}
+while getopts ${optstring} arg; do
+  case ${arg} in
+    h)
+	echo "$0 [-l] [-h]"
+	echo "    -h  montre l'aide"
+	echo "    -l  le serveur attend les requêtes sur son entrée standard"
+	exit 0
+      ;;
+    l)
+	utilise_port=""
+        ;;
+    ?)
+      echo "mauvaise option: -${OPTARG}."
+      exit 2
+      ;;
+  esac
+done
+ 
+if [ -z "${utilise_port}" ]
+then
+    ${stages[0]} ${next_stage_in} ${next_stage_out}
+else
+    declare -g server_fifo
+    server_fifo=$(mktemp -u )
+    mkfifo ${server_fifo}
+    cat ${server_fifo} | \
+	${stages[0]} ${next_stage_in} ${next_stage_out} | \
+	nc -C -k -l 127.0.0.1 ${PORT} > \
+           ${server_fifo}
+    \rm ${server_fifo}
+fi
 exit 0
