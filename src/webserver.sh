@@ -27,7 +27,13 @@ function read_from_previous () {
 }
 export -f read_from_previous
 
-function read_from_next () {
+
+function read_text_from_next () {
+    read -r -n $1  -u ${next_stage_out} text_from_next
+}
+export -f read_text_from_next
+
+function read_line_from_next () {
     read -u ${next_stage_out} line_from_next
     while [ -z "${line_from_next}" ]
     do
@@ -35,7 +41,7 @@ function read_from_next () {
 	read -u ${next_stage_out} line_from_next
     done
 }
-export -f read_from_next
+export -f read_line_from_next
 
 function write_to_next () {
     1>&${next_stage_in} printf "${1}\n"
@@ -160,7 +166,7 @@ else
     mkfifo ${server_fifo}
     cat ${server_fifo} | \
 	${stages[0]} ${next_stage_in} ${next_stage_out} | \
-	nc -C -k -l "${IP}" "${PORT}" > \
+	nc  -k -l "${IP}" "${PORT}" > \
            ${server_fifo}
     \rm ${server_fifo}
 fi

@@ -126,30 +126,41 @@ function application_state_logic () {
 function response_forward_logic () {
     local Code ContentType ContentLength Content
     log "response_forward_logic" "reading Code"
-    read_from_next
+    read_line_from_next
     Code=${line_from_next}
     log "response_forward_logic" "Code is ${Code}"
     log "response_forward_logic" "reading length"
-    read_from_next
-    ContentLength=${line_from_next}
+    read_line_from_next
+    ContentLength=${line_from_next} 
     log "response_forward_logic" "Content-Length is ${ContentLength}"
     log "response_forward_logic" "reading type"
-    read_from_next
+    read_line_from_next
     ContentType=${line_from_next}
     log "response_forward_logic" "Type is ${ContentType}"
     log "response_forward_logic" "reading content"
-    read_from_next
-    Content=${line_from_next}
-    log "response_forward_logic" "Content is ${Content}"
+    log "response_forward_logic"  "IFS='' read -r -n ${ContentLength}  -u ${next_stage_out} Content"
+     read -d '' -r -n ${ContentLength}  -u ${next_stage_out} Content
+#    read_text_from_next ${ContentLength}
+#    Content="${text_from_next}"
+     log "response_forward_logic" "Content is ${Content::40}...${Content: -40}"
+     Content=$(printf "%s" "${Content}")
+     log "response_forward_logic" "real content length is ${#Content}"
     case ${Code} in
 	# Only a few dozens of other codes to implement
-	 "200")
-	     printf "HTTP/1.1 ${Code} OK\r\n"  
-	     printf "Content-Type: ${ContentType}\r\n" 
+	*)
+	    printf "HTTP/1.1 ${Code} OK\r\n"  
+	    log "response_forward_logic" "response: HTTP/1.1 ${Code} OK"  
+	    printf "Content-Type: ${ContentType}\r\n" 
+	    log "response_forward_logic" "response: Content-Type: ${ContentType}" 
 	     printf "Date: $(date -R)\r\n" 
+	    log "response_forward_logic" "response: Date: $(date -R)" 
 	     printf "Content-Length: ${ContentLength}\r\n" 
+	    log "response_forward_logic" "response: Content-Length: $((${ContentLength}))"
 	     printf "\r\n" 
-	     printf "${Content}"
+	    log "response_forward_logic" "response:   "  
+	    printf "%s" "${Content}"
+	    log "response_forward_logic" "response: ${Content::40}...${Content: -40}"  
+	    log "response_forward_logic" "response sent"
 	     ;;
     esac
 }

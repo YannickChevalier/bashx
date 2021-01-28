@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+  <meta charset="utf-8">
+    <title>Page d'accueil de bashx</title>
+    <style>
+      body {
+      margin: 0;
+      }
+      article,
+      aside,
+      details,
+      figcaption,
+      figure,
+      footer,
+      header,
+      hgroup,
+      main,
+      nav,
+      section,
+      summary {
+      display: block;
+      }
+      audio,
+      canvas,
+      progress,
+      video {
+      display: inline-block; /* 1 */
+      vertical-align: baseline; /* 2 */
+      }
+      audio:not([controls]) {
+      display: none;
+      height: 0;
+      }
+      
+      /**
+      * Address `[hidden]` styling not present in IE 8/9.
+      * Hide the `template` element in IE, Safari, and Firefox < 22.
+      */
+
+      [hidden],
+      template {
+      display: none;
+      }
+      a {
+      background: transparent;
+      }
+
+      /**
+      * Improve readability when focused and also mouse hovered in all browsers.
+      */
+      
+      a:active,
+      a:hover {
+      outline: 0;
+      }
+      button,
+      input,
+      optgroup,
+      select,
+      textarea {
+      color: inherit; /* 1 */
+      font: inherit; /* 2 */
+      margin: 0; /* 3 */
+      }
+      button {
+      overflow: visible;
+      }
+      button,
+      select {
+      text-transform: none;
+      }
+      section.titlepage {
+      background: #222 ;
+      background-size: cover;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -ms-flex-align: center;
+      align-items: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      font-size: 36px;
+      color: #000080;
+      }
+      section.frame {
+      background-color: #BBB ;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -ms-flex-align: stretch;
+      align-items: stretch;
+      }
+p,
+ul,
+* {
+  margin: 0;
+  padding: 0;
+  }
+  body {
+  height: 100vh;
+  width: 100vw;
+}
+
+/* include border and padding in element width and height */
+* {
+  box-sizing: border-box;
+}
+section.frame {
+  height: 100%;
+  width: 100%;
+}
+section.frame > * {
+  margin: 0em 2em 0em 2em;
+}
+section.frame::after {
+  content: ' ';
+}
+section.frame >.frametitle {
+  margin: 0;
+  background: linear-gradient(0deg, rgba(0,0,128,0.2), #000080 20%, #000070 50%, #000080 70%, rgba(0,0,128,0.5) 100%);
+  color: #fff;
+}
+section.frame > .frametitle > h2 {
+  width: 100%;
+  justify-self: flex-start;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  padding: 0.2em 10px 0.2em;
+  font-size: xx-large;
+  font-weight: bold;
+}
+.frame-body {
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  padding: 0;
+  margin: 0;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  justify-self: stretch;
+}
+.frame-body::before {
+  content: ' ';
+}
+.frame-body::after {
+  content: ' ';
+}
+
+.frame-footer {
+  height: 2em;
+  width: 100%;
+  justify-self: flex-end;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+}
+
+.block {
+  color: #00e;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+.block .block-head {
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  position: relative;
+  left: -7px;
+  color: #00e;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 0px;
+  background: linear-gradient(0deg, rgba(0,0,128,0.5), #000080 30%, #000080 70%, rgba(0,0,128,0.5) 100%);
+  color: #fff;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  padding-left: 7px;
+  padding-right: 20px;
+}
+.block .block-body {
+  color: #000;
+  border: solid #000080;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-width: 0 0 2px 2px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  padding: 5px;
+  background: #fff;
+  }
+  .vmode {
+  width: 100% ;
+   display: -ms-flexbox;
+   display: flex;
+   -ms-flex-direction: column ;
+   flex-direction: column ;
+   align-items: stretch ;
+   justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+   }
+   .line {
+  width: 100% ;
+   display: flex ;
+   flex-direction: row ;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+   }
+.display.math {
+  margin: auto;
+}
+.p {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-bottom: 0;
+}
+.center {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  self-align: center;
+}
+p {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+ul {
+  margin-left: 2em;
+  margin-right: 0.5em;
+  }
+
+input {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+}
+
+.no-outline:focus {
+  outline: none;
+  }
+comid::before {
+  content: '$ ';
+}
+.p.indent {
+  text-indent: 0.5em;
+}
+a.elink {
+  color: #f00;
+  font-style: italic;
+  text-decoration: underline;
+  }
+    </style>
+</head>
+<body>
+  <section class="frame">
+  <div class="frametitle"><h2>BashX</h2></div>
+  
+  <div class="block">
+    <div class="block-head">
+      Exécution de commandes sur debian0
+    </div>
+    <div class="block-body">
+      <div id="request-result" class="vmode">
+      </div>
+      <input type="text" class="line" style="width:100%;" name="commande" id="comid" value="" />
+    </div>
+  </div>
+  </section>
+    <script>
+function sendRequest(commande) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/exec" ) ;
+      xhr.responseType="json" ;
+      
+      xhr.setRequestHeader("command",commande) ;
+      xhr.send() ;
+      xhr.onload = function() {
+            if (xhr.status != 200) { // analyze HTTP status of the response
+                  alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+	    } else {
+		  const resp =xhr.response;
+		  var responseNode=document.getElementById('request-result') ;
+		  for ( let line of resp.lines ) {
+		        var nl=document.createElement("div") ;
+		        nl.classList.add("line") ;
+		        nl.textContent=line ;
+		        responseNode.appendChild(nl);
+	         }
+          }
+     };
+}
+
+const inputNode = document.getElementById("comid");
+inputNode.addEventListener("keyup", function(event) {
+      if (event.key === "Enter") {
+      sendRequest(inputNode.value) ;
+      inputNode.value="" ;
+      }
+});
+    </script>
+</body>
+</html>
