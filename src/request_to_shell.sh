@@ -35,22 +35,16 @@ function application_state_logic () {
     :
 }
 function response_forward_logic () {
-    local result=()
+    local result
     local nb_lines
     local response_line output=""
     local filename
     if [ "${request["path"]}" == "/exec" ]
     then
+	log "response_forward_logic" "reading command output"
 	read_line_from_next
-	nb_lines=${line_from_next}
-	lines=( $(head -n ${nb_lines} - <&${next_stage_out}) )
-	result="{ \"lines\": [ \"\$ ${request["command"]}\" "
-	for response_line in ${lines[@]}
-	do
-	    result="${result}, \"${response_line}\" "
-	done
-	result="${result} ] }"
-	result=$(printf "%s" "${result}")
+	result="${line_from_next}"
+	log "response_forward_logic" "command output is \"${result}\""
 	ContentType="application/json"
 	ReturnCode="200"
 	log "response_forward_logic" "file content: ${result}"
@@ -68,16 +62,16 @@ function response_forward_logic () {
 	    case ${FileExtension} in
 		html )
 		    ContentType="text/html; charset=utf-8"
+		    result=$(< "${filename}" )
 		    ;;
 		ico | png )
-		    ContentType="img/png"
+		    ContentType="img/png;base64"
+		    result=$(base64 "${filename}" )
 		    ;;
 		* )
 		    ContentType="text/plain; charset=utf-8"
 		    ;;
 	    esac
-	    filesize=$(stat --printf="%s" "${filename}")
-	    result=$(< "${filename}" )
 	else
 	    ReturnCode="404"
 	    result=""
