@@ -6,14 +6,14 @@ PORT=80
 IP=${HOSTNAME}
 
 # works, execution of one-line commands
-stages=(./http_parser.sh ./request_to_shell.sh ./shell_backend.sh)
+# stages=(./http_parser.sh ./controleur.sh ./shell_backend.sh)
 
 # works, communication with one terminal
-# stages=(http_parser.sh request_to_shell.sh shell_session.sh)
+stages=(http_parser.sh controleur.sh shell_session.sh)
 
 # TO DO: docker, communication with one terminal inside a docker
-# container
-# stages=(http_parser.sh request_to_shell.sh docker_session.sh)
+# container. One needs a docker Hub account.
+# stages=(http_parser.sh controleur.sh docker_session.sh)
 
 
 

@@ -28,31 +28,30 @@ function request_forward_logic () {
     :
 }
 function application_state_logic () {
-    read command_line
-    local result_line
+    local line
     declare -a -g result
-    unset result
+    local command
+    local result
     local nb_lines=0
-    log "a_s_l" "command line: |${command_line}|"
-    log "sending command:" "${command_line} ; echo 'S3cur1t3 is C00|_'" 
-    1>&${fifo_fd_in} echo "${command_line} ; echo 'S3cur1t3 is C00|_'" 
-    while read -u ${fifo_fd_out} result_line
+    
+    read command
+    log "application_state_logic" "command line: |${command}|"
+    result="{ \"lines\": [ \"$ ${command}\" "
+    log "application_state_logic" "sending command: \"${command_line} ; echo 'S3cur1t3 is C00|_'\"" 
+    1>&${fifo_fd_in} echo "${command} ; echo 'S3cur1t3 is C00|_'" 
+    while read -u ${fifo_fd_out} line
     do
-	log "response processing" "received line |${result_line}|"
-	if [[ "${result_line}" =~ "S3cur1t3 is C00|_" ]]
+	log "application_state_logic" "read line |${line}|"
+	if [[ "${line}" =~ "S3cur1t3 is C00|_" ]]
 	then
+	    log "application_state_logic" "detected end of output"
 	    break
 	fi
-	log "response processing" "line ${nb_lines} received"
-	result["${nb_lines}"]="${result_line}"
-	nb_lines=$((${nb_lines}+1))
+	result="${result} , \"${line}\" "
     done
-    log "response processing" "end of response reached"
-    echo ${nb_lines}
-    for result_line in ${result[@]}
-    do
-	echo ${result_line}
-    done
+    log "application_state_logic" "sending JSON output ${result}"
+    printf "%s ] }\n" "${result}"
+    log "application_state_logic" "response transfered"
 }
 function response_forward_logic () {
     :
