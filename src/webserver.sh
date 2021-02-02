@@ -9,7 +9,7 @@ IP=${HOSTNAME}
 # stages=(./http_parser.sh ./controleur.sh ./shell_backend.sh)
 
 # works, communication with one terminal
-stages=(./http_parser.sh ./controleur.sh ./shell_session.sh)
+stages=(http_parser.sh controleur.sh shell_session.sh)
 
 # TO DO: docker, communication with one terminal inside a docker
 # container. One needs a docker Hub account.
