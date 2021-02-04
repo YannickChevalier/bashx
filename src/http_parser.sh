@@ -150,7 +150,7 @@ function response_forward_logic () {
 	*)
 	    printf "HTTP/1.1 ${Code} OK\r\n"  
 	    log "response_forward_logic" "response: HTTP/1.1 ${Code} OK"  
-	    printf "Content-Type: ${ContentType}\r\n" 
+	    printf "Content-Type: %s\r\n" "${ContentType}" 
 	    log "response_forward_logic" "response: Content-Type: ${ContentType}" 
 	     printf "Date: $(date -R)\r\n" 
 	    log "response_forward_logic" "response: Date: $(date -R)" 
