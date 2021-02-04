@@ -19,7 +19,7 @@ function initialisation () {
     exec {fifo_fd_out}<>${fifo_file_out}
     # launch the bash session
     log "initialisation" "starting bash session"
-    1>${fifo_file_out} 2>&1 <${fifo_file_in} /bin/bash &
+    1>${fifo_file_out} 2>&1 <${fifo_file_in} sudo -u titi /bin/bash &
     log "initialisation" "done"
 }
 
