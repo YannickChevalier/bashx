@@ -10,6 +10,14 @@ function initialisation () {
     declare -g fifo_out
     declare -g my_pid=$$
     declare -g waiting=""
+    declare -g users=""
+    declare -g user=""
+    log "initialisation" "trying to find normal user"
+    users=($(ls /home/))
+    if [[ ${#users[*]} -eq 1 ]]
+    then
+	user=${users[0]}
+    fi
     log "my pid" "${BASHPID} or $$"
     log "initialisation" "${fifo_file_in} -> ${fifo_file_out}"
     mkfifo ${fifo_file_in}
@@ -19,7 +27,17 @@ function initialisation () {
     exec {fifo_fd_out}<>${fifo_file_out}
     # launch the bash session
     log "initialisation" "starting bash session"
-    1>${fifo_file_out} 2>&1 <${fifo_file_in} sudo -u titi /bin/bash &
+    if [ -z "${user}" ]
+    then
+	log "initialisation" "starting subshell as root"
+	1>${fifo_file_out} 2>&1 <${fifo_file_in} /bin/bash &
+    else
+	if [ ! -x "/usr/bin/sudo" ] ; then
+	    apt install sudo
+	fi
+	log "initialisation" "starting subshell as ${user}"
+	1>${fifo_file_out} 2>&1 <${fifo_file_in} sudo -u titi /bin/bash &
+    fi
     log "initialisation" "done"
 }
 
