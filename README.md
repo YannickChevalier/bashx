@@ -9,7 +9,7 @@ serveur Web à utiliser pour les TPs de sécurité
 Ce fichier contient les définitions de fonctions utilisées dans les
 autres scripts, et lance les scripts listés dans la variable 'stages'.
 Les entrées et sorties standard de chaque script sont connectées soit
-au script précédent, soit au port 80 de la machine (avec la
+au script précédent, soit au port 20080 de la machine (avec la
 commande "nc" vers la fin du script).
 
 ## Le fichier http_parser.sh
@@ -34,16 +34,30 @@ précisant sa longueur et son type (text/html) au script précédent.
 Ces fichiers recoivent une commande sur leur entrée standard. Ils
 l'exécutent, et renvoient le résultat sur leur sortie standard.
 
+
 # Utilisation
 
-Le serveur a été modifié après le premier TP pour être sûr de pouvoir
-travailler. L'inconvénient est qu'il faut écrire les requêtes HTTP
-dans le terminal sur lequel le serveur est exécuté. Pour l'utiliser,
-il faut taper dans le terminal:
+## En mode découverte
+
+On peut l'utiliser en allant dans le répertoire bashrc/src et en tapant:
      ./webserver.sh
-     GET / HTTP/1.1
-     command: ls
-     
-     // à chaque fois qu'on tape quelque chose, on voit le
-     // serveur réagir
-N'oubliez pas la ligne vide pour indiquer la fin de la requête !
+
+Dans un navigateur, allez à l'adresse localhost:20080. Si vous avez réussi à 
+installer une machine virtuelle, vous pouvez lancer le serveur sur cette 
+machine, et rediriger (comme pour ssh) un port de la machine hôte vers le
+port 20080 de cette machine. Il faut alors aussi changer l'adresse IP en
+celle de la machine virtuelle au début du script webserver.sh
+
+## Pour l'analyse de sécurité
+
+Pour l'analyse de sécurité, on peut aussi lancer des requêtes depuis
+la ligne de commande (cf. page 3 du TP).
+
+# Travail
+
+Il faut:
+   - faire la liste des lignes du code qui sont souillées, c'est-à-dire
+qui utilisent les données de l'utilisateur
+   - regarder, pour chaque ligne, s'il est possible de causer une erreur
+sur le script.
+

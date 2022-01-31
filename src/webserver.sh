@@ -3,7 +3,7 @@
 # Only for use during lab sessions
 
 PORT=20080
-IP=${HOSTNAME}
+IP="127.0.0.1"
 
 # works, execution of one-line commands
 # stages=(./http_parser.sh ./controleur.sh ./shell_backend.sh)
