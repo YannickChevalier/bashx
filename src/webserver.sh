@@ -44,7 +44,7 @@ function read_line_from_next () {
 export -f read_line_from_next
 
 function write_to_next () {
-    1>&${next_stage_in} printf "${1}\n"
+    1>&${next_stage_in} printf "%s\n" "${1}"
 }
 export -f write_to_next
 
