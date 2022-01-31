@@ -2,7 +2,7 @@
 # @ Yannick Chevalier, January 2020
 # Only for use during lab sessions
 
-PORT=80
+PORT=20080
 IP=${HOSTNAME}
 
 # works, execution of one-line commands
